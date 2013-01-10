@@ -1,0 +1,32 @@
+!!!
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Splitbill
+    %meta{:content => "", :name => "description"}/
+    %meta{:content => "", :name => "author"}/
+    /[if lt IE 9]
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    %link{:href => "/css/bootstrap.css", :rel => "stylesheet"}/
+    %link{:href => "/css/splitbill.css", :rel => "stylesheet"}/
+
+  %body
+    .navbar.navbar-inverse
+      .navbar-inner
+        .container
+          %a.brand{:href => '#'} Splitbill
+          %ul.nav.pull-right
+            - if logged_in?
+              %li
+                %a{ :href=>'/users/' + current_user.id + '/edit' } Edit Account
+              %li
+                %a{ :href=>'/logout' } Logout
+            - else
+              %li
+                %a{ :href=>'/signup' } Sing up
+    .container
+      - if flash[:notice]
+        .alert.alert-info= flash[:notice]
+      - if flash[:error]
+        .alert.alert-error= flash[:error]
+      =yield

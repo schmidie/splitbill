@@ -1,0 +1,24 @@
+.row
+  %table.table.table-striped.table-bordered
+    %thead
+      %tr
+        %th Name
+        %th Location
+        %th Date/Time
+    %tbody        
+    - @events.each do |event|
+      %tr
+        %td
+          %a{:href => "/events/" + event._id}= event.name
+        %td
+          = event.location
+        %td
+          = event.date
+  .well
+    %form{:action=>"/create", :method=>"post"}
+      %legend Create a new Event
+      %fieldset
+        = input(:event,:name, :placeholder => "Name")
+        = input(:event,:location, :placeholder => "Location")
+        = input(:event,:date, :placeholder => "Date")
+      %button.btn.btn-primary{:type => "submit"} Create Event

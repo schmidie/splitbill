@@ -1,0 +1,14 @@
+event:
+  name: Name
+  location: Ort
+  date: Datum
+auth:
+  login:
+    success: Erfolgreich eingeloggt!
+    failure: E-Mail oder Passwort sind falsch!
+  logout:
+    success: Erfolgreich ausgeloggt!
+  user:
+    created: Account erstellt.
+    updated: Account aktualisiert.
+    deleted: Benutzer gelöscht.

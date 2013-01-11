@@ -1,2 +1,49 @@
-= @event.name
-= @event.mm_user.email
+%h1= @event.name
+.well.well-small 
+  %dl
+    %dt
+      User
+    %dd
+      = @event.mm_user.email
+    %dt
+      = t.event.location
+    %dd
+      = @event.location
+    %dt
+      = t.event.date
+    %dd
+      = l @event.date, :human
+%table.table.table-striped.table-bordered.sum
+  %thead
+    %tr
+      %th Item
+      %th Amount
+      %th User
+      %th
+  %tbody       
+  - @event.items.each do |item|
+    %tr
+      %td
+        = item.name
+      %td
+        = "#{"%.2f" % item.amount}"
+      %td
+        = item.mm_user.email
+      %td 
+        - if item.mm_user.email == current_user.email
+          %a{:href => "/events/#{@event._id}/#{item._id}/delete"} Delete
+  %tfoot.sum
+    %tr
+      %td
+        %b Sum:
+      %td 
+        =  "#{"%.2f" % @sum}"
+      %td
+      %td
+.well
+  %form{:action=>"/events/#{@event._id}/add", :method=>"post"}
+    %legend Add an Item
+    %fieldset
+      = input(:item,:name, :placeholder => "Name")
+      = input(:item,:amount, :placeholder => "0.00")
+    %button.btn.btn-primary{:type => "submit"} Add

@@ -2,9 +2,9 @@
   %table.table.table-striped.table-bordered
     %thead
       %tr
-        %th Name
-        %th Location
-        %th Date/Time
+        %th= t.event.name
+        %th= t.event.location
+        %th= t.event.date
     %tbody        
     - @events.each do |event|
       %tr
@@ -13,7 +13,7 @@
         %td
           = event.location
         %td
-          = event.date
+          = l event.date, :human
   .well
     %form{:action=>"/create", :method=>"post"}
       %legend Create a new Event

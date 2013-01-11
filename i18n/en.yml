@@ -1,0 +1,14 @@
+event:
+  name: Name
+  location: Location
+  date: Date
+auth:
+  login:
+    success: Login successful!
+    failure: The email or password you entered is incorrect.
+  logout:
+    success: Logout successful.
+  user:
+    created: Account created.
+    updated: Account updated.
+    deleted: User deleted.

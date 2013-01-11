@@ -15,6 +15,10 @@
       .navbar-inner
         .container
           %a.brand{:href => '#'} Splitbill
+          %ul.nav
+            - r18n.available_locales.each do |locale|
+              %li
+                %a( href="?locale=#{locale.code}" )= locale.code
           %ul.nav.pull-right
             - if logged_in?
               %li
@@ -30,3 +34,6 @@
       - if flash[:error]
         .alert.alert-error= flash[:error]
       =yield
+    %hr
+    %footer
+        

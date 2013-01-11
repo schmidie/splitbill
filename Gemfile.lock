@@ -1,3 +1,19 @@
+GIT
+  remote: git://github.com/andreasknoepfle/sinatra-authentication.git
+  revision: 4a56c06b0b15d168c04f46b7644aca7d21b64641
+  ref: 4a56c06b0b15d168c04f46b7644aca7d21b64641
+  branch: master
+  specs:
+    sinatra-authentication (0.4.2)
+      dm-core
+      dm-migrations
+      dm-timestamps
+      dm-validations
+      rack-flash3
+      rufus-tokyo
+      sinatra
+      sinbook
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -22,6 +38,10 @@ GEM
       dm-core (~> 1.2.0)
     haml (3.1.4)
     i18n (0.6.1)
+    json (1.7.5)
+    money (5.0.0)
+      i18n (~> 0.4)
+      json
     mongo (1.8.1)
       bson (~> 1.8.1)
     mongo_mapper (0.12.0)
@@ -31,31 +51,24 @@ GEM
     multi_json (1.5.0)
     plucky (0.5.2)
       mongo (~> 1.5)
+    r18n-core (1.1.3)
     rack (1.4.3)
-    rack-flash (0.1.2)
+    rack-flash3 (1.0.3)
+      rack
       rack
     rack-protection (1.3.2)
       rack
     rufus-tokyo (1.0.7)
     sinatra (1.3.1)
       rack (~> 1.3, >= 1.3.4)
-      rack (~> 1.3, >= 1.3.4)
-      rack-protection (~> 1.1, >= 1.1.2)
       rack-protection (~> 1.1, >= 1.1.2)
       tilt (~> 1.3, >= 1.3.3)
-      tilt (~> 1.3, >= 1.3.3)
-    sinatra-authentication (0.4.1)
-      dm-core
-      dm-migrations
-      dm-timestamps
-      dm-validations
-      rack-flash
-      rufus-tokyo
-      sinatra
-      sinbook
     sinatra-flash (0.3.0)
       sinatra (>= 1.0.0)
     sinatra-formhelpers (0.4.0)
+    sinatra-r18n (1.1.3)
+      r18n-core (= 1.1.3)
+      sinatra (>= 1.3)
     sinbook (0.1.9)
       yajl-ruby
     tilt (1.3.3)
@@ -67,8 +80,10 @@ PLATFORMS
 DEPENDENCIES
   bson_ext
   haml (= 3.1.4)
+  money
   mongo_mapper
   sinatra (= 1.3.1)
-  sinatra-authentication
+  sinatra-authentication!
   sinatra-flash
   sinatra-formhelpers
+  sinatra-r18n

@@ -23,3 +23,13 @@
         margin-bottom: 15px;
         padding: 7px 9px;
       }
+      
+tfoot.sum {
+	border-top-style: double;
+	border-top-width: 5px;
+	border-collapse: collapse;
+}
+
+table.sum {
+	border-collapse: collapse;
+}

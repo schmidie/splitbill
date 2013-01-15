@@ -13,6 +13,10 @@
       = t.event.date
     %dd
       = l @event.date, :human
+    %dt
+      Users
+    %dd
+      = @members.collect{|member| member.email}.join(", ")
 %table.table.table-striped.table-bordered.sum
   %thead
     %tr
@@ -40,10 +44,14 @@
         =  "#{"%.2f" % @sum}"
       %td
       %td
-.well
-  %form{:action=>"/events/#{@event._id}/add", :method=>"post"}
-    %legend Add an Item
-    %fieldset
-      = input(:item,:name, :placeholder => "Name")
-      = input(:item,:amount, :placeholder => "0.00")
-    %button.btn.btn-primary{:type => "submit"} Add
+- if @event.members.include? current_user.id
+  .well
+    %form{:action=>"/events/#{@event._id}/add", :method=>"post"}
+      %legend Add an Item
+      %fieldset
+        = input(:item,:name, :placeholder => "Name")
+        = input(:item,:amount, :placeholder => "0.00")
+      %button.btn.btn-primary{:type => "submit"} Add
+- else 
+  .well
+    %a.btn.btn-primary{:href => "/events/#{@event._id}/join"} Join

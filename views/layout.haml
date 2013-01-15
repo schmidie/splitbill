@@ -29,10 +29,11 @@
               %li
                 %a{ :href=>'/signup' } Sing up
     .container
-      - if flash[:notice]
-        .alert.alert-info= flash[:notice]
-      - if flash[:error]
-        .alert.alert-error= flash[:error]
+      .row
+        - if flash[:notice]
+          .alert.alert-info= flash[:notice]
+        - if flash[:error]
+          .alert.alert-error= flash[:error]
       =yield
     %hr
     %footer

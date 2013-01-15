@@ -37,6 +37,7 @@ class Event
   belongs_to  :mm_user
   key :name,        String
   key :location,      String
+  key :open, Boolean
   key :date, Date
   many :items
   key :members, Array
@@ -66,6 +67,7 @@ post '/create' do
   login_required
   @event = Event.new(params[:event])
   @event.mm_user = current_user
+  @event.open = true
   @event.save
   redirect "/events/#{@event._id}"
 end
@@ -78,13 +80,20 @@ get '/events/:id' do |id|
    @event.items.each do |item|
      @sum += item.amount
    end
+   if @event.members.count != 0
+    @part = @sum/@event.members.count
+   else
+    @part = 0
+   end
    haml :show
 end
 
 get '/events/:id/join' do |id|
   login_required
   @event = Event.find(id)
-  @event.push({:members => current_user._id})
+  if @event.open
+    @event.push({:members => current_user._id})
+  end
   redirect "/events/#{@event._id}"
 end
 
@@ -92,11 +101,17 @@ post '/events/:id/add' do |id|
    login_required
   
    @event = Event.find(id)
-   if event.members.include? current_user.id
-     item = Item.new(params[:item])
-     item.mm_user = current_user
-     @event.items << item
-     @event.save
+   if @event.members.include? current_user.id 
+     if @event.open
+       item = Item.new(params[:item])
+       item.mm_user = current_user
+       @event.items << item
+       @event.save
+     else
+       flash[:error] = t.errors.closed
+     end
+   else
+     flash[:error] = t.errors.participate
    end
    redirect "/events/#{@event._id}"
 end
@@ -104,12 +119,15 @@ end
 get '/events/:id/:item_id/delete' do |id,item_id|
    login_required
    @event = Event.find(id)
-   
-   @event.items.each do |item|
-     if item.id.to_s == item_id && item.mm_user_id == current_user.id
-        @item = item
-        @event.pull( :items => {:_id => item.id})
+   if @event.open
+     @event.items.each do |item|
+       if item.id.to_s == item_id && (item.mm_user_id == current_user.id || event.mm_user_id == current_user.id) 
+          @item = item
+          @event.pull( :items => {:_id => item.id})
+       end
      end
+   else
+       flash[:error] = t.errors.closed
    end
 
    redirect "/events/#{@event._id}"
@@ -131,8 +149,27 @@ end
 post '/events/:id/:item_id/edit' do |id,item_id|
    login_required
    @event = Event.find(id)
-   
-   @event.items.select{|item| item.id.to_s == item_id}.each{}
+   if @event.open
+       @event.items.each do |item|
+         if(item.id.to_s == item_id && item.mm_user_id == current_user.id) 
+          item.name = params[:item][:name]
+          item.amount = params[:item][:amount]
+          item.save
+         end
+       end
+   else
+       flash[:error] = t.errors.closed
+   end
 
-   haml :edit
+   redirect "/events/#{@event._id}"
+end
+
+get '/events/:id/close' do |id|
+   login_required
+   @event = Event.find(id)
+   if @event.mm_user_id == current_user.id
+      @event.open = false
+      @event.save
+   end
+   redirect "/events/#{@event._id}"
 end

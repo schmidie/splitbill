@@ -16,10 +16,10 @@
           = l event.date, :human
   .well
     %form{:action=>"/create", :method=>"post"}
-      %legend Create a new Event
+      %legend= t.event.create.text
       %fieldset
-        = input(:event,:name, :placeholder => "Name")
-        = input(:event,:location, :placeholder => "Location")
-        = input(:event,:date, :placeholder => "Date")
-      %button.btn.btn-primary{:type => "submit"} Create Event
+        = input(:event,:name, :placeholder => t.event.name)
+        = input(:event,:location, :placeholder => t.event.location)
+        = input(:event,:date, :placeholder => t.event.date)
+      %button.btn.btn-primary{:type => "submit"}= t.event.create.submit
      

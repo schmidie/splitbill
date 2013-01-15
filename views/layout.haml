@@ -22,12 +22,12 @@
           %ul.nav.pull-right
             - if logged_in?
               %li
-                %a{ :href=>'/users/' + current_user.id + '/edit' } Edit Account
+                %a{ :href=>'/users/' + current_user.id + '/edit' }= current_user.email
               %li
-                %a{ :href=>'/logout' } Logout
+                %a{ :href=>'/logout' }= t.auth.logout.text
             - else
               %li
-                %a{ :href=>'/signup' } Sing up
+                %a{ :href=>'/signup' }= t.auth.signup.text
     .container
       .row
         - if flash[:notice]

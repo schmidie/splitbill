@@ -1,6 +1,5 @@
 %form.form-signin{:action => "/users/#{@user.id}/edit", :method => "post"}
-  %h2.page_title Edit
   %input.input-block-level{:id => "user_email", :name => "user[email]", :size => 30, :type => "text" , :value => @user.email}
-  %input.input-block-level{:id => "user_password", :name => "user[password]", :size => 30, :type => "password" , :placeholder => "New Password"}
-  %input.input-block-level{:id => "user_password", :name => "user[password_confirmation]", :size => 30, :type => "password" , :placeholder => "Password confirmation"}
+  %input.input-block-level{:id => "user_password", :name => "user[password]", :size => 30, :type => "password" , :placeholder =>  :placeholder => t.auth.user.new_password}
+  %input.input-block-level{:id => "user_password", :name => "user[password_confirmation]", :size => 30, :type => "password" , :placeholder =>  :placeholder => t.auth.user.password_confirmation}
   %button.btn.btn-large.btn-primary{:type => "submit"} Edit

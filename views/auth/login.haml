@@ -1,6 +1,7 @@
 %form.form-signin{:action => "/login", :method => "post"}
-  %h2.page_title Login
-  %input.input-block-level{:id => "user_email", :name => "email", :size => 30, :type => "text" , :placeholder => "E-Mail"}
-  %input.input-block-level{:id => "user_password", :name => "password", :size => 30, :type => "password" , :placeholder => "Password"}
-  %button.btn.btn-large.btn-primary{:type => "submit"} Login
+  %h2.page_title= t.auth.login.text
+  %input.input-block-level{:id => "user_email", :name => "email", :size => 30, :type => "text" , :placeholder => t.auth.user.email}
+  %input.input-block-level{:id => "user_password", :name => "password", :size => 30, :type => "password" , :placeholder => t.auth.user.password}
+  %button.btn.btn-large.btn-primary{:type => "submit"}= t.auth.login.text
+  %a.btn.btn-large{:href => "/signup"}= t.auth.signup.text
      

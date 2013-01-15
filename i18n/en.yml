@@ -2,13 +2,42 @@ event:
   name: Name
   location: Location
   date: Date
+  users: Participants
+  items:
+    item: Item
+    amount: Amount
+    user: by User
+    delete: Delete
+    add:
+      legend:  Add an Item
+      submit: Add
+    edit:
+      submit: Update
+      button: Edit
+  join: Participate
+  close: Abrechnen
+  create:
+    text: New Event
+    submit: Submit
+back: Back
 auth:
+  signup:
+    text: Sign up
   login:
     success: Login successful!
     failure: The email or password you entered is incorrect.
+    text: Login
   logout:
     success: Logout successful.
+    text: Logout
   user:
     created: Account created.
     updated: Account updated.
     deleted: User deleted.
+    email: Email
+    password: Password
+    new_password: New Password
+    password_confirmation: Password Confirmation
+errors:
+  participate: "You do not participate this event!"
+  closed: "Event closed!"

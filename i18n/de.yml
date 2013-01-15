@@ -2,13 +2,42 @@ event:
   name: Name
   location: Ort
   date: Datum
+  users: Teilnehmer
+  items:
+    item: Posten
+    amount: Wert
+    user: von Teilnehmer
+    delete: Löschen
+    add:
+      legend:  Posten hinzufügen
+      submit: Hinzufügen
+    edit:
+      submit: Aktualisieren
+      button: Bearbeiten
+  join: Teilnehmen
+  close: Abrechnen
+  create:
+    text: Neue Veranstaltung
+    submit: Anlegen
+back: Zurück
 auth:
+  signup:
+    text: "Registrieren"
   login:
     success: Erfolgreich eingeloggt!
     failure: E-Mail oder Passwort sind falsch!
+    text: Anmelden
   logout:
     success: Erfolgreich ausgeloggt!
+    text: Abmelden
   user:
     created: Account erstellt.
     updated: Account aktualisiert.
     deleted: Benutzer gelöscht.
+    email: Email
+    password: Passwort
+    new_password: Neues Passwort
+    password_confirmation: Passwort bestätigen
+errors:
+  participate: "Du nimmst nicht an dieser Veranstaltung teil"
+  closed: "Veranstaltung bereits abgeschlossen!"

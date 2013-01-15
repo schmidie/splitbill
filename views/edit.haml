@@ -1,0 +1,7 @@
+.well
+  %form{:method=>"post"}
+    %fieldset
+      = input(:item,:name, :value => @item.name)
+      = input(:item,:amount, :value =>  "#{"%.2f" % @item.amount}")
+    %button.btn.btn-primary{:type => "submit"}= t.event.items.edit.submit
+  

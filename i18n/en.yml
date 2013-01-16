@@ -32,6 +32,7 @@ auth:
     success: Logout successful.
     text: Logout
   user:
+    edit: Update
     created: Account created.
     updated: Account updated.
     deleted: User deleted.

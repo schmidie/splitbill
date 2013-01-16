@@ -32,6 +32,7 @@ auth:
     success: Erfolgreich ausgeloggt!
     text: Abmelden
   user:
+    edit: Aktualisieren
     created: Account erstellt.
     updated: Account aktualisiert.
     deleted: Benutzer gelöscht.

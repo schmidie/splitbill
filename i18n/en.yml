@@ -4,6 +4,7 @@ event:
   date: Date
   users: Participants
   items:
+    bill: Reciept
     item: Item
     amount: Amount
     user: by User

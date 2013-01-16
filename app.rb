@@ -9,6 +9,7 @@ require 'sinatra/flash'
 require 'sinatra/form_helpers'
 require 'sinatra/r18n'
 require 'money'
+require 'joint'
 
 #Sinatra-Flash Hack
 module Rack
@@ -34,6 +35,7 @@ end
 
 class Event
   include MongoMapper::Document
+  
   belongs_to  :mm_user
   key :name,        String
   key :location,      String
@@ -47,6 +49,9 @@ end
 
 class Item
   include MongoMapper::EmbeddedDocument
+  plugin Joint
+
+  attachment :bill
   belongs_to  :mm_user
   embedded_in :event
   key :name,    String
@@ -103,7 +108,10 @@ post '/events/:id/add' do |id|
    @event = Event.find(id)
    if @event.members.include? current_user.id 
      if @event.open
-       item = Item.new(params[:item])
+       item = Item.new(:name => params[:item][:name], :amount => params[:item][:amount] )
+       if params[:item][:bill]
+         item.bill = params[:item][:bill][:tempfile]
+       end
        item.mm_user = current_user
        @event.items << item
        @event.save
@@ -172,4 +180,18 @@ get '/events/:id/close' do |id|
       @event.save
    end
    redirect "/events/#{@event._id}"
+end
+
+get '/bills/:id/:item_id' do |id,item_id|
+  login_required
+  @event = Event.find(id)
+   
+   @event.items.each do |item|
+     if item.id.to_s == item_id
+        @item = item
+     end
+   end
+   file = @item.bill
+  [200, {'Content-Type' => file.content_type}, [file.read]]
+
 end

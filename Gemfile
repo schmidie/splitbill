@@ -9,3 +9,4 @@ gem "mongo_mapper"
 gem "bson_ext"
 gem 'sinatra-r18n'
 gem 'money'
+gem "joint" 

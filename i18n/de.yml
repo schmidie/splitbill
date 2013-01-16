@@ -4,6 +4,7 @@ event:
   date: Datum
   users: Teilnehmer
   items:
+    bill: Rechnung
     item: Posten
     amount: Wert
     user: von Teilnehmer

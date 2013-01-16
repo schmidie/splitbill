@@ -66,8 +66,9 @@
     %b
       = "#{"%.2f" % @part}"
  
-.well
-  - if @event.open
+
+- if @event.open
+  .well
     - if @event.members.include? current_user.id
       %form{:action=>"/events/#{@event._id}/add", :method=>"post" ,  :enctype => "multipart/form-data"}
         %legend= t.event.items.add.legend
@@ -85,9 +86,10 @@
     - else
       %p 
         %a.btn.btn-primary{:href => "/events/#{@event._id}/join"}= t.event.join
+  .well
     - if @event.mm_user_id == current_user.id 
-      %p
-        %a.btn.btn-success{:href => "/events/#{@event._id}/close"}= t.event.close
+      %a.btn.btn-success{:href => "/events/#{@event._id}/close"}= t.event.close
+    %a.btn{:href => "/"}= t.back
  
         
-  %a.btn{:href => "/"}= t.back
+  

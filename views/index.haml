@@ -1,25 +1,26 @@
 .row
-  %table.table.table-striped.table-bordered
-    %thead
-      %tr
-        %th= t.event.name
-        %th= t.event.location
-        %th= t.event.date
-    %tbody        
-    - @events.each do |event|
-      %tr
-        %td
-          %a{:href => "/events/" + event._id}= event.name
-        %td
-          = event.location
-        %td
-          = l event.date, :human
-  .well
-    %form{:action=>"/create", :method=>"post"}
-      %legend= t.event.create.text
-      %fieldset
-        = input(:event,:name, :placeholder => t.event.name)
-        = input(:event,:location, :placeholder => t.event.location)
-        = input(:event,:date, :placeholder => t.event.date)
-      %button.btn.btn-primary{:type => "submit"}= t.event.create.submit
+  .span12
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th= t.event.name
+          %th= t.event.location
+          %th= t.event.date
+      %tbody        
+      - @events.each do |event|
+        %tr
+          %td
+            %a{:href => "/events/" + event._id}= event.name
+          %td
+            = event.location
+          %td
+            = l event.date, :human
+    .well
+      %form{:action=>"/create", :method=>"post"}
+        %legend= t.event.create.text
+        %fieldset
+          = input(:event,:name, :placeholder => t.event.name)
+          = input(:event,:location, :placeholder => t.event.location)
+          = input(:event,:date, :placeholder => t.event.date)
+        %button.btn.btn-primary{:type => "submit"}= t.event.create.submit
      

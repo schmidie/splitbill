@@ -1,3 +1,8 @@
+common:
+  statistics: Stats
+  count_events: Number of Events
+  count_items: Number of Items
+  sum: Total shared amount
 event:
   name: Name
   location: Location

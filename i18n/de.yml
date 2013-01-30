@@ -1,3 +1,8 @@
+common:
+  statistics: Statistiken
+  count_events: Anzahl Ereignisse
+  count_items: Anzahl Posten
+  sum: Gesamtsumme der geteilten Kosten
 event:
   name: Name
   location: Ort

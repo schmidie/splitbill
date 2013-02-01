@@ -16,11 +16,17 @@ event:
       submit: Update
       button: Edit
   join: Participate
-  close: Abrechnen
+  close: Cash up
+  add_bill: Users have to add a bill
+  creator_pays: Payment details
+  creator_pays_label: Don't split the total sum
+  all_pay_label: Split the total sum into equal parts for each participant
   create:
     text: New Event
     submit: Submit
 back: Back
+yes: Yes
+no: No
 auth:
   signup:
     text: Sign up

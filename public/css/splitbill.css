@@ -33,3 +33,7 @@ tfoot.sum {
 table.sum {
 	border-collapse: collapse;
 }
+
+label.control-label {
+	font-weight:bold;
+}

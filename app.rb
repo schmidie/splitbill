@@ -40,6 +40,8 @@ class Event
   key :name,        String
   key :location,      String
   key :open, Boolean
+  key :creator_pays, Boolean
+  key :add_bill, Boolean
   key :date, Date
   many :items
   key :members, Array
@@ -70,6 +72,16 @@ end
 
 post '/create' do
   login_required
+  if params[:event][:add_bill]== "true"
+    params[:event][:add_bill] = true
+  else
+    params[:event][:add_bill] = false
+  end
+  if params[:event][:creator_pays]== "true"
+    params[:event][:creator_pays] = true
+  else
+    params[:event][:creator_pays] = false
+  end
   @event = Event.new(params[:event])
   @event.mm_user = current_user
   @event.open = true

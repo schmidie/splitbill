@@ -17,10 +17,16 @@ event:
       button: Bearbeiten
   join: Teilnehmen
   close: Abrechnen
+  add_bill: Rechnungspflicht
+  creator_pays: Zahlungsmodalitäten
+  creator_pays_label: Abrechnungssumme wird nicht geteilt
+  all_pay_label: Abrechnungssumme wird zu gleichen Teilen auf alle Teilnehmer aufgeteilt
   create:
     text: Neue Veranstaltung
     submit: Anlegen
 back: Zurück
+yes: Ja
+no: Nein
 auth:
   signup:
     text: "Registrieren"

@@ -14,6 +14,20 @@
     %dd
       = l @event.date, :human
     %dt
+      = t.event.creator_pays
+    %dd
+      - if @event.creator_pays 
+        = t.event.creator_pays_label
+      - else
+        = t.event.all_pay_label
+    %dt
+      = t.event.add_bill
+    %dd
+      - if @event.add_bill 
+        = t.yes
+      - else
+        = t.no 
+    %dt
       = t.event.users
     %dd
       = @members.collect{|member| member.email}.join(", ")

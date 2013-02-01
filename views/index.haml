@@ -1,49 +1,48 @@
 .row
-  %table.table.table-striped.table-bordered
-    %thead
-      %tr
-        %th= t.event.name
-        %th= t.event.location
-        %th= t.event.date
-    %tbody        
-    - @events.each do |event|
-      %tr
-        %td
-          %a{:href => "/events/" + event._id}= event.name
-        %td
-          = event.location
-        %td
-          = l event.date, :human
-  .well
-    %form{:action=>"/create", :method=>"post"}
-      %legend= t.event.create.text
-      %fieldset
-        .control-group
-          %label.control-label= t.event.name
-          = input(:event,:name)
-        .control-group
-          %label.control-label= t.event.location
-          = input(:event,:location )
-        .control-group
-          %label.control-label= t.event.date
-          = input(:event,:date, :placeholder => "31.12.2013")
-        .control-group.radio_buttons
-          %label.control-label.radio_buttons{:for => "event[add_bill]"}= t.event.add_bill
-          .controls
-          %label.radio.inline
-            %input{:name => "event[add_bill]", :type => "radio", :value => "true"}
-            = t.yes
-          %label.radio.inline
-            %input{:name => "event[add_bill]", :type => "radio", :value => "false", :checked => true}
-            = t.no
-        .control-group.radio_buttons
-          %label.control-label.radio_buttons{:for => "event[creator_pays]"}= t.event.creator_pays
-          .controls
-          %label.radio
-            %input{:name => "event[creator_pays]", :type => "radio", :value => "true"}
-            = t.event.creator_pays_label
-          %label.radio
-            %input{:name => "event[creator_pays]", :type => "radio", :value => "false" , :checked => true}
-            = t.event.all_pay_label
-        %button.btn.btn-primary{:type => "submit"}= t.event.create.submit
-     
+  .span12
+    %table.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th= t.event.name
+          %th= t.event.location
+          %th= t.event.date
+      %tbody        
+      - @events.each do |event|
+        %tr
+          %td
+            %a{:href => "/events/" + event._id}= event.name
+          %td
+            = event.location
+          %td
+            = l event.date, :human
+    .well
+      %form{:action=>"/create", :method=>"post"}
+        %legend= t.event.create.text
+        %fieldset
+          .control-group
+            %label.control-label= t.event.name
+            = input(:event,:name)
+          .control-group
+            %label.control-label= t.event.location
+            = input(:event,:location )
+          .control-group
+            %label.control-label= t.event.date
+            = input(:event,:date, :placeholder => "31.12.2013")
+          .control-group.radio_buttons
+            %label.control-label.radio_buttons{:for => "event[add_bill]"}= t.event.add_bill
+            .controls
+            %label.radio.inline
+              %input{:name => "event[add_bill]", :type => "radio", :value => "true"}
+              = t.yes
+            %label.radio.inline
+              %input{:name => "event[add_bill]", :type => "radio", :value => "false", :checked => true}
+              = t.no
+          .control-group.radio_buttons
+            %label.control-label.radio_buttons{:for => "event[creator_pays]"}= t.event.creator_pays
+            .controls
+            %label.radio
+              %input{:name => "event[creator_pays]", :type => "radio", :value => "true"}
+              = t.event.creator_pays_label
+            %label.radio
+              %input{:name => "event[creator_pays]", :type => "radio", :value => "false" , :checked => true}
+              = t.event.all_pay_label

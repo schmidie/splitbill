@@ -60,9 +60,31 @@ class Item
   key :amount,   Float
 end
 
+# Before Filter
 before do
   session[:locale] = params[:locale] if params[:locale]
 end
+
+
+# Helper
+helpers do
+  def statistics
+     sum=0;
+     count_e=0;
+     count_p=0;
+     @events = Event.all
+     @events.each do |event|
+       event.items.each do |item|
+         sum += item.amount
+         count_p+=1
+       end
+       count_e+=1
+     end
+     @stats = { :events => count_e, :items => count_p , :sum => sum }
+     haml :stats
+  end
+end
+
 
 get '/' do
 	login_required

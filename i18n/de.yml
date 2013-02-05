@@ -3,10 +3,13 @@ common:
   count_events: Anzahl Ereignisse
   count_items: Anzahl Posten
   sum: Gesamtsumme der geteilten Kosten
+  back: Zurück
 event:
   name: Name
   location: Ort
+  creator: Ersteller
   date: Datum
+  please_add_bill: Der Ersteller verlangt einen Rechnungsbeleg in Form eines Bildes wenn ein neuer Posten hinzugefügt wird!
   users: Teilnehmer
   items:
     bill: Rechnung
@@ -18,9 +21,11 @@ event:
       legend:  Posten hinzufügen
       submit: Hinzufügen
     edit:
+      legend: Posten bearbeiten
       submit: Aktualisieren
       button: Bearbeiten
   join: Teilnehmen
+  edit: Ereignis bearbeiten
   close: Abrechnen
   add_bill: Rechnungspflicht
   creator_pays: Zahlungsmodalitäten
@@ -29,9 +34,36 @@ event:
   create:
     text: Neue Veranstaltung
     submit: Anlegen
-back: Zurück
+  no_members: Keine Teilnehmer
+  payment:
+    you: Du
+    have_to_pay: bezahlst
+    has_to_pay: bezahlt
+    recieve: bekommst
+    recieves: bekommt
+    payed: Als bezahlt markieren
+    payed_label: Bezahlt
+    recieved: Als empfangen markieren
+    recieved_label: Empfangen
+    open: Offen
+    details: Zahlungsdetails
+    payment_status:  Zahlungsstatus
+    recieved_status: Empfangsstatus
+  log:
+    participate: Neuer Teilnehmer
+    item_added: Neuer Posten
+    item_edited: Posten bearbeitet
+    item_deleted: Posten gelöscht
+    closed: Abgerechnet
+  comment:
+    message: Nachricht
+    button: Kommentieren
+  trash: Papierkorb
 yes: Ja
 no: Nein
+edit: Bearbeiten
+delete: Löschen
+undelete: Wiederherstellen
 auth:
   signup:
     text: "Registrieren"

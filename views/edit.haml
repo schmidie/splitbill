@@ -1,7 +1,9 @@
 .well
   %form{:method=>"post"}
     %fieldset
-      = input(:item,:name, :value => @item.name)
-      = input(:item,:amount, :value =>  "#{"%.2f" % @item.amount}")
+      %legend= t.event.items.edit.legend
+      = input(:item,:name, :value => @item.name,:class => (error? @item,:name)?"error":"")
+      =label(:item,:amount, t.event.items.amount,{:class => (error? @item,:amount)?"error":""})
+      = input(:item,:amount, :value =>  @item.amount ? "#{"%.2f" % @item.amount}" : "0.00",:class => (error? @item,:amount)?"error":"")
     %button.btn.btn-primary{:type => "submit"}= t.event.items.edit.submit
   

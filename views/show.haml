@@ -1,21 +1,34 @@
 .row
   .span12
+    - if @event.open && @event.mm_user._id == current_user._id
+      .pull-right
+        %a.btn.btn-mini{:href => "/events/" + @event._id+ "/edit"}
+          %i.icon-pencil
+          = t.edit
+        %a.btn.btn-mini{:href => "/events/" + @event._id+ "/delete"}
+          %i.icon-remove
+          = t.delete
     %h1= @event.name
+  .span6
     .well.well-small 
       %dl
         %dt
-          User
+          %i.icon-user
+          = t.event.creator
         %dd
           = @event.mm_user.email
         %dt
+          %i.icon-map-marker
           = t.event.location
         %dd
           = @event.location
         %dt
+          %i.icon-calendar
           = t.event.date
         %dd
           = l @event.date, :human
         %dt
+          %i.icon-shopping-cart
           = t.event.creator_pays
         %dd
           - if @event.creator_pays 
@@ -23,6 +36,7 @@
           - else
             = t.event.all_pay_label
         %dt
+          %i.icon-tag
           = t.event.add_bill
         %dd
           - if @event.add_bill 
@@ -30,9 +44,25 @@
           - else
             = t.no 
         %dt
+          %i.icon-th-list
           = t.event.users
         %dd
-          = @members.collect{|member| member.email}.join(", ")
+          - if @members.empty? 
+            = t.event.no_members
+          - else
+            = @members.collect{|member| member.email}.join(", ")
+  .span6
+    - @event.logs.reverse[0..5].each do |log|
+      .alert.alert-info.alert-log
+        .pull-right
+          =l log.created_at, :human
+        %i.icon-info-sign
+        %b
+          ="#{t.event.log[log.message]}:"
+        %br
+        =log.object  
+.row
+  .span12
     %table.table.table-striped.table-bordered.sum
       %thead
         %tr
@@ -53,17 +83,19 @@
             - if item.bill_id 
               %a{:href =>  "/bills/#{@event._id}/#{item._id}" }
                 %i.icon-file
-          %td 
-            - if item.mm_user.id == current_user.id
-              %a{:href => "/events/#{@event._id}/#{item._id}/edit"}
-                %i.icon-pencil
-                = t.event.items.edit.button
-          %td
-            - if item.mm_user.id == current_user.id || @event.mm_user.id == current_user.id
-              %a{:href => "/events/#{@event._id}/#{item._id}/delete"}
-                %i.icon-trash
-                = t.event.items.delete
-      
+          - if @event.open
+            %td 
+              - if item.mm_user.id == current_user.id
+                %a{:href => "/events/#{@event._id}/#{item._id}/edit"}
+                  %i.icon-pencil
+                  = t.event.items.edit.button
+            %td
+              - if item.mm_user.id == current_user.id || @event.mm_user.id == current_user.id
+                %a{:href => "/events/#{@event._id}/#{item._id}/delete"}
+                  %i.icon-trash
+                  = t.event.items.delete
+          - else
+            %td{:colspan => 2}
             
             
       %tfoot.sum
@@ -75,7 +107,7 @@
           %td
           %td{:colspan => 3}
     
-    - if @part != 0
+    - if @part != 0 && !@event.creator_pays
       .well
         =  "#{"%.2f" % @sum}" 
         = " / " +  @event.members.count.to_s + " = " 
@@ -89,23 +121,90 @@
           %form{:action=>"/events/#{@event._id}/add", :method=>"post" ,  :enctype => "multipart/form-data"}
             %legend= t.event.items.add.legend
             %fieldset
-              = input(:item,:name, :placeholder => "Name")
+              = input(:item,:name, :placeholder => "Name",:class => (error? @item,:name)?"error":"")
              
-              =label :item,:bill, t.event.items.amount
+              =label(:item,:amount, t.event.items.amount,{:class => (error? @item,:amount)?"error":""})
               
-              = input(:item,:amount, :placeholder => "0.00")
+              = input(:item,:amount, :placeholder => "0.00",:class => (error? @item,:amount)?"error":"")
               
-              =label :item,:bill, t.event.items.bill
+              =label(:item,:bill, t.event.items.bill)
              
               %input{:name => "item[bill]" , :id => "item_bill",:type => "file" , :accept => "image/*"}
             %button.btn.btn-primary{:type => "submit"}= t.event.items.add.submit
+            %hr
         - else
-          %p 
-            %a.btn.btn-primary{:href => "/events/#{@event._id}/join"}= t.event.join
-      .well
+          %a.btn.btn-primary{:href => "/events/#{@event._id}/join"}= t.event.join
+
         - if @event.mm_user_id == current_user.id 
           %a.btn.btn-success{:href => "/events/#{@event._id}/close"}= t.event.close
-        %a.btn{:href => "/"}= t.back
- 
         
+    - else 
+      
+      %table.table.table-striped.table-bordered
+        %tr
+          %th= t.event.payment.details
+          %th= t.event.payment.payment_status  
+          %th= t.event.payment.recieved_status 
+        - @event.payments.each do |payment|
+          -if payment.mm_user_id == current_user.id || @creator
+            %tr
+              %td
+                - if payment.mm_user_id == current_user.id
+                  = t.event.payment.you
+                  - if payment.amount > 0
+                    = t.event.payment.have_to_pay
+                  - else 
+                    = t.event.payment.recieve
+                - else
+                  = payment.mm_user.email 
+                  - if payment.amount > 0
+                    = t.event.payment.has_to_pay
+                  - else 
+                    = t.event.payment.recieves
+                = "#{"%.2f" % payment.amount.abs}"
+              - if payment.payed
+                %td 
+                  %i.icon-ok
+                  = t.event.payment.payed_label
+                %td
+                  - if payment.recieved
+                    %i.icon-ok 
+                    = t.event.payment.recieved_label  
+                  - else
+                    - if (@creator && payment.amount > 0) || (payment.amount <= 0 && payment.mm_user_id == current_user.id)
+                      - if !(@creator && payment.mm_user_id == current_user.id)
+                        %a.btn.btn-sucess{:href => "/events/#{@event._id}/recieve/#{payment._id}"}= t.event.payment.recieved
+                    - else
+                      %i.icon-remove  
+                      = t.event.payment.open
+              - else 
+                %td
+                  - if (payment.mm_user_id == current_user.id && payment.amount > 0) || (@creator && payment.amount <= 0)
+                    - if !(@creator && payment.mm_user_id == current_user.id && payment.amount <= 0)
+                      %a.btn.btn-sucess{:href => "/events/#{@event._id}/pay/#{payment._id}"}= t.event.payment.payed
+                  - else
+                    = t.event.payment.open
+                %td  
+%row
+  %span12
+    
+    - @event.comments.each do |comment|
+       
+      %blockquote
+        =comment.message  
+        %small
+          = "#{comment.mm_user.email} "
+          = "(#{l comment.created_at, :human})"
+    .well
+      %form{:action=>"/events/#{@event._id}/comment", :method=>"post" }
+        %fieldset
+          = input(:comment,:message, :placeholder => t.event.comment.message)
+        %button.btn.btn-primary{:type => "submit"}= t.event.comment.button
+%row
+  %span12    
+    %a.btn{:href => "/"}= t.common.back
+
+        
+    
+      
  

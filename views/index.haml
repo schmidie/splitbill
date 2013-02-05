@@ -10,24 +10,35 @@
       - @events.each do |event|
         %tr
           %td
+            - if event.open && event.mm_user._id == current_user._id
+              .pull-right
+                %a.btn.btn-mini{:href => "/events/" + event._id+ "/edit"}
+                  %i.icon-pencil
+                  = t.edit
+                %a.btn.btn-mini{:href => "/events/" + event._id+ "/delete"}
+                  %i.icon-remove
+                  = t.delete
             %a{:href => "/events/" + event._id}= event.name
+           
           %td
             = event.location
           %td
             = l event.date, :human
+       
     .well
       %form{:action=>"/create", :method=>"post"}
         %legend= t.event.create.text
         %fieldset
           .control-group
             %label.control-label= t.event.name
-            = input(:event,:name)
+            = input(:event,:name,:class => (error? @event,:name)?"error":"" )
           .control-group
             %label.control-label= t.event.location
-            = input(:event,:location )
+            = input(:event,:location,:class => (error? @event,:location)?"error":"" )
           .control-group
             %label.control-label= t.event.date
-            = input(:event,:date, :placeholder => "31.12.2013")
+            = input(:event,:date, :placeholder => "31.01.2013",:class => (error? @event,:date)?"error":"")
+            [dd.mm.yyyy]
           .control-group.radio_buttons
             %label.control-label.radio_buttons{:for => "event[add_bill]"}= t.event.add_bill
             .controls
@@ -46,3 +57,33 @@
             %label.radio
               %input{:name => "event[creator_pays]", :type => "radio", :value => "false" , :checked => true}
               = t.event.all_pay_label
+        %button.btn.btn-primary{:type => "submit"}= t.event.create.submit
+  -if !@trash.empty?
+    .span12
+      %h4
+        %i.icon-trash
+        = t.event.trash
+      %table.table.table-striped.table-bordered
+        %thead
+          %tr
+            %th= t.event.name
+            %th= t.event.location
+            %th= t.event.date
+        %tbody        
+          - @trash.each do |event|   
+            %tr
+              %td
+                - if event.open && event.mm_user._id == current_user._id
+                  .pull-right
+                    %a.btn.btn-mini{:href => "/events/" + event._id+ "/edit"}
+                      %i.icon-pencil
+                      = t.edit
+                    %a.btn.btn-mini{:href => "/events/" + event._id+ "/undelete"}
+                      %i.icon-share
+                      = t.undelete
+                %a{:href => "/events/" + event._id}= event.name
+               
+              %td
+                = event.location
+              %td
+                = l event.date, :human     

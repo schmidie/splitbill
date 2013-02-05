@@ -3,10 +3,13 @@ common:
   count_events: Number of Events
   count_items: Number of Items
   sum: Total shared amount
+  back: Back
 event:
   name: Name
+  creator: Creator
   location: Location
-  date: Date
+  date: Date 
+  please_add_bill: The creator requests you to add a picture of your bill to submit an item!
   users: Participants
   items:
     bill: Reciept
@@ -18,10 +21,12 @@ event:
       legend:  Add an Item
       submit: Add
     edit:
+      legend: Edit Item
       submit: Update
       button: Edit
   join: Participate
   close: Cash up
+  edit: Edit event
   add_bill: Users have to add a bill
   creator_pays: Payment details
   creator_pays_label: Don't split the total sum
@@ -29,9 +34,36 @@ event:
   create:
     text: New Event
     submit: Submit
-back: Back
+  no_members: No participants
+  payment:
+    you: You
+    have_to_pay: have to pay
+    has_to_pay: has to pay
+    recieve: recieve
+    recieves: recieves
+    payed: Mark as payed
+    payed_label: Payed
+    recieved: Mark as recieved
+    recieved_label: Recieved
+    open: Open
+    details: Payment details
+    payment_status:  Payment status
+    recieved_status: Recieved status
+  log:
+    participate: New participant
+    item_added: New Item
+    item_edited: Item edited
+    item_deleted: Item deleted
+    closed: Cashed Up
+  comment:
+    message: Message
+    button: Comment
+  trash: Trash
 yes: Yes
 no: No
+edit: Edit
+delete: Delete
+undelete: Recover
 auth:
   signup:
     text: Sign up

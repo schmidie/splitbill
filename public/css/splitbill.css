@@ -37,3 +37,19 @@ table.sum {
 label.control-label {
 	font-weight:bold;
 }
+
+.alert-log {
+	margin-bottom: 3px;
+}
+
+dd {
+	margin-bottom: 20px;
+}
+
+input.error {
+	border-color: red;
+}
+
+label.error {
+	color: red;
+}

@@ -30,10 +30,11 @@
                 %a{ :href=>'/signup' }= t.auth.signup.text
     .container
       .row
-        - if flash[:notice]
-          .alert.alert-info= flash[:notice]
-        - if flash[:error]
-          .alert.alert-error= flash[:error]
+        .span12
+          - if flash[:notice]
+            .alert.alert-info= flash[:notice]
+          - if flash[:error]
+            .alert.alert-error= flash[:error]
       =yield
     %hr
     %footer

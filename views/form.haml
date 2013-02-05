@@ -1,0 +1,34 @@
+.well
+  %form{:action=>"/events/#{@event._id}/edit", :method=>"post"}
+    %legend= t.event.edit
+    %fieldset
+      .control-group
+        %label.control-label= t.event.name
+        = input(:event,:name, :value => @event.name,:class => (error? @event,:name)?"error":"")
+      .control-group
+        %label.control-label= t.event.location
+        = input(:event,:location , :value => @event.location,:class => (error? @event,:location)?"error":"")
+      .control-group
+        %label.control-label= t.event.date
+        = input(:event,:date, :value => (@event.date!=nil ? @event.date.strftime(" %d.%m.%Y") : ""),:class => (error? @event,:date)?"error":"")
+        [dd.mm.yyyy]
+      .control-group.radio_buttons
+        %label.control-label.radio_buttons{:for => "event[add_bill]"}= t.event.add_bill
+        .controls
+        %label.radio.inline
+          %input{:name => "event[add_bill]", :type => "radio", :value => "true", :checked => @event.add_bill}
+          = t.yes
+        %label.radio.inline
+          %input{:name => "event[add_bill]", :type => "radio", :value => "false", :checked => !@event.add_bill}
+          = t.no
+      .control-group.radio_buttons
+        %label.control-label.radio_buttons{:for => "event[creator_pays]"}= t.event.creator_pays
+        .controls
+        %label.radio
+          %input{:name => "event[creator_pays]", :type => "radio", :value => "true", :checked => @event.creator_pays}
+          = t.event.creator_pays_label
+        %label.radio
+          %input{:name => "event[creator_pays]", :type => "radio", :value => "false" , :checked => !@event.creator_pays}
+          = t.event.all_pay_label
+    %button.btn.btn-primary{:type => "submit"}= t.event.create.submit
+    %a.btn{:href => "/"}= t.common.back
